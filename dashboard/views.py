@@ -3,7 +3,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 
-@login_required
+@login_required()
 def dashboard(request):
     content = {
         'title': 'Dashboard',
@@ -11,7 +11,7 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', content)
 
-
+@login_required()
 def logout_view(request):
     logout(request)
     return redirect('/')
