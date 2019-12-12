@@ -1,0 +1,26 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+        <table class="table">
+            <thead>
+                <th>Lista</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </thead>
+            <tbody>
+                {% for library in libraries %}
+                    <tr>
+                <th>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <h3 class="mb-1">{{ library.title }}</h3>
+                        <p class="mb-1">{{ library.details }}</p>
+                    </a>
+                </th>
+                <th><a class="btn btn-outline-danger">Editar</a></th>
+                <th><a class="btn btn-outline-warning">Excluir</a></th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

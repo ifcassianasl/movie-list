@@ -26,8 +26,9 @@ class LoginForm(forms.Form):
                     css_class='col-md-12'), css_class='row'),
 
                 Div(
-                    Submit('submit', 'Entrar', css_class="btn btn-success btn-lg"),
-                    css_class='row col-md-12 d-flex justify-content-end'),
+                    Submit('submit', 'Entrar', css_class="btn btn-primary btn-block full-width m-b"),
+                    HTML('<p class="text-muted text-center"><small>Ainda não tem uma conta?</small></p>'
+                         '<a class="btn btn-sm btn-info btn-block" href="{% url "create_user" %}">Criar uma conta</a>'),),
                 css_class='col-md-12'), css_class='row mt-5')
         )
 

@@ -20,10 +20,10 @@ class NewUserForm(forms.ModelForm):
 
                 Div(Div(
                     Field('first_name'),
-                    css_class='col-md-6'),
-                    Div(
+                    css_class='col-md-12'), css_class='row'),
+                Div(Div(
                     Field('last_name'),
-                    css_class='col-md-6'), css_class='row'),
+                    css_class='col-md-12'), css_class='row'),
 
                 Div(Div(
                     Field('email'),
@@ -38,9 +38,9 @@ class NewUserForm(forms.ModelForm):
                     css_class='col-md-12'), css_class='row'),
 
                 Div(
-                    Submit('submit', 'Salvar', css_class="btn btn-success btn-lg"),
-                    HTML('<a href="#" class="btn btn-outline-secondary btn-lg">Voltar</a>'),
-                    css_class='row btn-group col-md-12 d-flex justify-content-end'),
+                    Submit('submit', 'Salvar', css_class="btn btn-primary block full-width m-b"),
+                    HTML('<p class="text-muted text-center"><small>Já tem uma conta?</small></p>'
+                         '<a class="btn btn-sm btn-info btn-block" href="{% url "login" %}">Login</a>'),),
                 css_class='col-md-12'), css_class='row mt-5')
         )
 

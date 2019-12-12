@@ -23,7 +23,7 @@
 
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu">
+            <ul class="nav metismenu active" id="side-menu">
                 <li class="nav-header">
                     <div class="logo-element">
                         <div class="d-flex flex-column align-items-md-center">
@@ -44,19 +44,34 @@
                     </div>
                 </li>
                 <li class="active">
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Menu inicial</span></a>
+                </li>
+                <li class="active">
                     <a href="{% url 'account' %}"><i class="fa fa-user"></i> <span class="nav-label">Minha conta</span></a>
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
+                    <a href="{% url 'libraries' %}"><i class="fa fa-folder"></i> <span class="nav-label">Listas</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{% url 'libraries' %}">Minhas listas</a></li>
+                        <li><a href="{% url 'create_library' %}">Criar lista</a></li>
+                        <li><a href="#">Excluir lista</a></li>
+                    </ul>
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-film"></i> <span class="nav-label">Cadastrar filme</span></a>
+                    <a href="{% url 'libraries' %}"><i class="fa fa-film"></i> <span class="nav-label">Categorias</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{% url 'libraries' %}">Minhas categorias</a></li>
+                        <li><a href="{% url 'create_library' %}">Criar categoria</a></li>
+                        <li><a href="#">Excluir categoria</a></li>
+                    </ul>
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-list-ul"></i> <span class="nav-label">Cadastrar categoria</span></a>
-                </li>
-                <li class="active">
-                    <a href="#"><i class="fa fa-folder"></i> <span class="nav-label">Minha lista</span></a>
+                    <a href="{% url 'libraries' %}"><i class="fa fa-list-ul"></i> <span class="nav-label">Filmes</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{% url 'libraries' %}">Meus filmes</a></li>
+                        <li><a href="{% url 'create_library' %}">Criar filme</a></li>
+                        <li><a href="#">Excluir filme</a></li>
+                    </ul>
                 </li>
             </ul>
 
@@ -81,7 +96,7 @@
         </div>
         <div class="wrapper wrapper-content animated fadeInRigh">
             <div>
-                <div class="col-lg-12 d-flex flex-column align-items-md-center justify-content-center">
+                <div class="col-lg-12">
                   {% block content %} {% endblock content %}
                 </div>
             </div>

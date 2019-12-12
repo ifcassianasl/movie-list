@@ -7,4 +7,5 @@ urlpatterns = [
     path('create_user/', include('create_user.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('user/', include('user.urls')),
+    path('libraries/', include('library.urls')),
 ]

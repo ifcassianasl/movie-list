@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 from .forms import NewUserForm
 from django.contrib.auth.models import User
 
@@ -16,6 +17,11 @@ def user_view(request):
                                    is_staff=1, is_superuser=1)
         user.set_password(password)
         user.save()
+
+        user_auth = authenticate(username=username, password=password)
+        if user_auth:
+            login(request, user_auth)
+            return redirect('/dashboard/')
 
     content = {
         'title': 'Criar conta:',

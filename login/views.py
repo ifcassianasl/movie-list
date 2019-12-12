@@ -11,7 +11,6 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            print(user)
             return redirect('/dashboard/')
 
     content = {
