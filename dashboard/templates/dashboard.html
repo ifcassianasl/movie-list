@@ -37,9 +37,9 @@
                             <span class="block font-bold m-t-xs">Usuário: {{ user }} <b class="caret"></b></span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a class="dropdown-item" href="#">Ver usuário</a></li>
-                            <li><a class="dropdown-item" href="#">Editar usuário</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account' %}">Ver usuário</a></li>
+                            <li><a class="dropdown-item" href="{%  url 'edit_account' %}">Editar usuário</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                     </div>
                 </li>
@@ -79,9 +79,9 @@
 
             </nav>
         </div>
-        <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="wrapper wrapper-content animated fadeInRigh">
             <div>
-                <div class="col-lg-12 d-flex flex-column align-items-md-center">
+                <div class="col-lg-12 d-flex flex-column align-items-md-center justify-content-center">
                   {% block content %} {% endblock content %}
                 </div>
             </div>

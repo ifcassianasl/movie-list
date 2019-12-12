@@ -11,7 +11,8 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', content)
 
+
 @login_required()
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect('login')

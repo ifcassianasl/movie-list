@@ -4,26 +4,19 @@ from django.contrib.auth.models import User
 from crispy_forms.layout import Submit, Layout, Div, HTML, Field
 
 
-class NewUserForm(forms.ModelForm):
+class EditUserForm(forms.ModelForm):
     def __init__(self,  *args, **kwargs):
-        super(NewUserForm, self).__init__(*args, **kwargs)
+        super(EditUserForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(Div(
                 Div(Div(
-                    HTML('<h2 class="hfc-green">Cadastrar novo usuário</h2>'),
-                    css_class='col-md-12 text-center'), css_class='row'),
-                Div(Div(
-                    Field('username'),
-                    css_class='col-md-12'), css_class='row'),
-
-                Div(Div(
                     Field('first_name'),
-                    css_class='col-md-6'),
-                    Div(
+                    css_class='col-md-12'), css_class='row'),
+                Div(Div(
                     Field('last_name'),
-                    css_class='col-md-6'), css_class='row'),
+                    css_class='col-md-12'), css_class='row'),
 
                 Div(Div(
                     Field('email'),
@@ -38,24 +31,20 @@ class NewUserForm(forms.ModelForm):
                     css_class='col-md-12'), css_class='row'),
 
                 Div(
-                    Submit('submit', 'Salvar', css_class="btn btn-success btn-lg"),
-                    HTML('<a href="#" class="btn btn-outline-secondary btn-lg">Voltar</a>'),
+                    Submit('submit', 'Salvar', css_class="btn btn-info btn-lg"),
+                    HTML('<a href="{% url "dashboard" %}" class="btn btn-outline-secondary btn-lg">Voltar</a>'),
                     css_class='row btn-group col-md-12 d-flex justify-content-end'),
-                css_class='col-md-12'), css_class='row mt-5')
+                css_class='col-md-12'), css_class='row mt-5 w-100'),
         )
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password')
+        fields = ('first_name', 'last_name', 'email', 'password')
 
-    password = forms.CharField(label='Senha', widget=forms.PasswordInput())
+    password = forms.CharField(label='Nova senha', widget=forms.PasswordInput())
 
     def check(self):
-        user = self.cleaned_data['username']
-        user_count = User.objects.filter(username=user).count()
         password = self.cleaned_data['password']
 
-        if user_count != 0:
-            raise forms.ValidationError({'username': ['Usuário já cadastrado', ]})
         if len(password) < 6:
             raise forms.ValidationError({'password': ['Senha fraca', ]})
