@@ -8,6 +8,7 @@ from library.models import Library
 def dashboard(request):
     user = request.user
     libraries = Library.objects.filter(users__username=user)
+    print(request.session['active_library'])
 
     content = {
         'title': 'Dashboard',

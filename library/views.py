@@ -65,5 +65,16 @@ def active_library(request):
     if uuid:
         library = get_object_or_404(Library, uuid=uuid)
         request.session['active_library'] = str(library.uuid)
+        request.session['active_library_title'] = library.title
+
+        libraries = Library.objects.filter(users__username=request.user)
+        request.session['library_list'] = []
+        for library_temp in libraries:
+            request.session['library_list'].append({
+                'active_library': str(library_temp.uuid),
+                'active_library_title': library.title
+            })
+            
+
 
     return redirect('dashboard')
