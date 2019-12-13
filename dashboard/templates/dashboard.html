@@ -44,7 +44,7 @@
                     </div>
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Menu inicial</span></a>
+                    <a href="{% url 'dashboard' %}"><i class="fa fa-th-large"></i> <span class="nav-label">Menu inicial</span></a>
                 </li>
                 <li class="active">
                     <a href="{% url 'account' %}"><i class="fa fa-user"></i> <span class="nav-label">Minha conta</span></a>
@@ -82,9 +82,17 @@
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <a href="{% url 'logout' %}">
-                            <i class="fa fa-sign-out"></i> Log out
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Seleciona sua lista<i class="fa fa-angle-down"></i></a>
+                        <div class="dropdown-menu">
+                            {% for library in libraries %}
+                                <a class="dropdown-item" href="{% url 'active_library' %}?library_uuid={{ library.uuid }}">{{ library.title }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            Log out  <i class="fa fa-sign-out"></i>
                         </a>
                     </li>
                 </ul>

@@ -1,0 +1,23 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+    <div class="row col-12 d-flex justify-content-around">
+    <div class="card text-center col-3 bg-transparent">
+        <div class="card-body d-flex flex-column align-items-md-center">
+            <h2 class="card-title">Minhas listas</h2>
+            <a href="{% url 'libraries' %}" class="btn btn-primary btn-lg btn-block font-weight-bolder">Ver listas</a>
+        </div>
+    </div>
+    <div class="card text-center col-3 bg-transparent">
+        <div class="card-body d-flex flex-column align-items-md-center">
+            <h2 class="card-title">Minhas categorias</h2>
+            <a href="{% url 'categories' %}" class="btn btn-primary btn-lg btn-block font-weight-bolder">Ver categorias</a>
+        </div>
+    </div>
+    <div class="card text-center col-3  bg-transparent">
+        <div class="card-body d-flex flex-column align-items-md-center">
+            <h2 class="card-title">Meus filmes</h2>
+            <a href="{% url 'movies' %}" class="btn btn-primary btn-lg btn-block font-weight-bolder">Ver filmes</a>
+        </div>
+    </div>
+    </div>
+{% endblock %}

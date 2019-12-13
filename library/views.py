@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404
 
 @login_required()
 def create_library(request):
+    user = request.user
+    libraries = Library.objects.filter(users__username=user)
+
     uuid = request.GET.get('library_uuid')
     if uuid:
         library = get_object_or_404(Library, uuid=uuid)
@@ -27,6 +30,7 @@ def create_library(request):
     content = {
         'title': title,
         'form': form,
+        'libraries': libraries,
     }
 
     return render(request, 'library_form.html', content)
@@ -51,5 +55,15 @@ def delete_library(request):
     if uuid:
         library = get_object_or_404(Library, uuid=uuid)
         library.delete()
-    
+
     return redirect('libraries')
+
+
+@login_required()
+def active_library(request):
+    uuid = request.GET.get('library_uuid')
+    if uuid:
+        library = get_object_or_404(Library, uuid=uuid)
+        request.session['active_library'] = str(library.uuid)
+
+    return redirect('dashboard')

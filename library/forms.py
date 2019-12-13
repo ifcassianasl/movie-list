@@ -5,7 +5,7 @@ from crispy_forms.layout import Submit, Layout, Div, HTML, Field
 
 
 class LibraryForm(forms.ModelForm):
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(LibraryForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper()
@@ -33,3 +33,10 @@ class LibraryForm(forms.ModelForm):
     class Meta:
         model = Library
         fields = ('title', 'details', 'users')
+
+    def clean(self):
+        cleaned_data = super(LibraryForm, self).clean()
+        users = cleaned_data.get("users")
+        user = self.user
+        if users.index(user):
+            raise forms.ValidationError({'users': ['Seu usuário deve fazer parte da lista']})

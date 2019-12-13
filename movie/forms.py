@@ -1,13 +1,12 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from django.contrib.auth.models import User
 from crispy_forms.layout import Submit, Layout, Div, HTML, Field
 from category.models import Category
 from .models import Movie
 
 
 class MovieForm(forms.ModelForm):
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, library, *args, **kwargs):
         super(MovieForm, self).__init__(*args, **kwargs)
         if self.instance.pk:
             self.form_type = 'edit'
@@ -16,7 +15,7 @@ class MovieForm(forms.ModelForm):
             self.form_type = 'new'
             ibox_title = 'Cadastrar novo filme'
 
-        # self.fields['category'].queryset = Category.objects.filter(library__user_list__username=user)
+        self.fields['category'].queryset = Category.objects.filter(library=library)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(Div(
@@ -54,14 +53,14 @@ class MovieForm(forms.ModelForm):
         fields = ('title', 'category', 'note', 'about', 'date')
 
     def clean(self):
-        cleaned_data = super(MovieManager, self).clean()
+        cleaned_data = super(MovieForm, self).clean()
         date = cleaned_data.get("date")
-        about = cleaned_data.get("about")
+        note = cleaned_data.get("note")
 
-        if not date or not about:
+        if not date or not note:
             raise forms.ValidationError('Todos os campos devem ser preenchidos')
 
-        if 0 <= rating <= 5:
+        if 0 <= note <= 5:
             pass
         else:
             raise forms.ValidationError({'rating': ['Nota deve ser de 0 a 5']})

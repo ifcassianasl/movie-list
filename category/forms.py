@@ -5,18 +5,13 @@ from crispy_forms.layout import Submit, Layout, Div, HTML, Field
 
 
 class CategoryForm(forms.ModelForm):
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(CategoryForm, self).__init__(*args, **kwargs)
-
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(Div(
                 Div(Div(
                     Field('kind'),
-                    css_class='col-md-12'), css_class='row'),
-
-                Div(Div(
-                    Field('library', css_class='custom-select custom-select-lg'),
                     css_class='col-md-12'), css_class='row'),
 
                 Div(
@@ -28,4 +23,4 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ('kind', 'library')
+        fields = ('kind',)
