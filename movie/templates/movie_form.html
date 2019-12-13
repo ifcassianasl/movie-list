@@ -1,0 +1,9 @@
+{%  extends 'dashboard.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="POST" class="w-75">
+        {% crispy form %}
+    </form>
+{% endblock %}

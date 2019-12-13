@@ -8,4 +8,6 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),
     path('user/', include('user.urls')),
     path('libraries/', include('library.urls')),
+    path('categories/', include('category.urls')),
+    path('movies/', include('movie.urls')),
 ]
