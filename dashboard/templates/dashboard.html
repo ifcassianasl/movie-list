@@ -83,10 +83,16 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="nav-item dropdown">
-                        <a class="nav-item nav-link dropdown-toggle mr-md-2" id="libraries" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Seleciona sua lista<i class="fa fa-angle-down"></i></a>
+                        <a class="nav-item nav-link dropdown-toggle mr-md-2" id="libraries" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            {% if request.session.active_library %}
+                                Lista: {{ request.session.active_library_title }}
+                            {% else %}
+                                Seleciona sua lista
+                            {% endif %}
+                            <i class="fa fa-angle-down"></i></a>
                         <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="libraries">
-                            {% for library in libraries %}
-                                <a class="dropdown-item" href="{% url 'active_library' %}?library_uuid={{ library.uuid }}">{{ library.title }}</a>
+                            {% for library in request.session.library_list %}
+                                <a class="dropdown-item" href="{% url 'active_library' %}?library_uuid={{ library.active_library }}">{{ library.active_library_title }}</a>
                             {% endfor %}
                         </div>
                     </li>

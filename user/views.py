@@ -8,22 +8,15 @@ from library.models import Library
 
 @login_required()
 def account(request):
-    user = request.user
-    libraries = Library.objects.filter(users__username=user)
-
     content = {
         'title': 'Minha conta',
-        'user': get_object_or_404(User, username=user),
-        'libraries':libraries,
+        'user': get_object_or_404(User, username=request.user),
     }
     return render(request, 'user.html', content)
 
 
 @login_required()
 def edit_account(request):
-    user = request.user
-    libraries = Library.objects.filter(users__username=user)
-
     user = get_object_or_404(User, username=request.user)
     form = EditUserForm(request.POST or None, instance=user)
     if form.is_valid():
@@ -43,6 +36,5 @@ def edit_account(request):
         'title': 'Editar conta',
         'user': user,
         'form': form,
-        'libraries': libraries,
     }
     return render(request, 'edit_user.html', content)

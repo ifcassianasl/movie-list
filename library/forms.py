@@ -5,8 +5,11 @@ from crispy_forms.layout import Submit, Layout, Div, HTML, Field
 
 
 class LibraryForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super(LibraryForm, self).__init__(*args, **kwargs)
+        self.user = user
+        self.fields['title'].label = 'Título'
+        #self.fields['title'].required = False
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -36,7 +39,6 @@ class LibraryForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(LibraryForm, self).clean()
-        users = cleaned_data.get("users")
-        user = self.user
-        if users.index(user):
-            raise forms.ValidationError({'users': ['Seu usuário deve fazer parte da lista']})
+        user_list = cleaned_data.get("users")
+        if self.user not in user_list:
+            raise forms.ValidationError({'users': 'O seu próprio usuário deve estar selecionado!'})

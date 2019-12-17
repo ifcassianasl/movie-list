@@ -8,8 +8,6 @@ from library.models import Library
 
 @login_required()
 def create_movie(request):
-    user = request.user
-    libraries = Library.objects.filter(users__username=user)
     active_library = get_object_or_404(Library, uuid=request.session['active_library'])
 
     uuid = request.GET.get('movie_uuid')
@@ -32,7 +30,6 @@ def create_movie(request):
     content = {
         'title': title,
         'form': form,
-        'libraries': libraries,
     }
 
     return render(request, 'movie_form.html', content)
@@ -40,9 +37,8 @@ def create_movie(request):
 
 @login_required()
 def movies_view(request):
-    user = request.user
-    libraries = Library.objects.filter(users__username=user)
-    movies = Movie.objects.filter(category__library__users__username=user)
+    active_library = request.session['active_library']
+    movies = Movie.objects.filter(category__library__uuid=active_library)
 
     if movies.count() == 0:
         title = 'Você não tem filmes registrados'
@@ -52,7 +48,6 @@ def movies_view(request):
     content = {
         'title': title,
         'movies': movies,
-        'libraries': libraries,
     }
 
     return render(request, 'movies.html', content)

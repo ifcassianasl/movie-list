@@ -1,19 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from library.models import Library
 
 
 @login_required()
 def dashboard(request):
     user = request.user
-    libraries = Library.objects.filter(users__username=user)
-    print(request.session['active_library'])
 
     content = {
         'title': 'Dashboard',
         'user': user,
-        'libraries': libraries,
     }
     return render(request, 'dashboard/index.html', content)
 

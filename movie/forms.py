@@ -15,7 +15,7 @@ class MovieForm(forms.ModelForm):
             self.form_type = 'new'
             ibox_title = 'Cadastrar novo filme'
 
-        self.fields['category'].queryset = Category.objects.filter(library=library)
+        self.fields['category'].queryset = Category.objects.filter(library=library).order_by('kind')
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(Div(

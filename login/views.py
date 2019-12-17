@@ -11,7 +11,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            return redirect('/dashboard/')
+            return redirect('active_library')
 
     content = {
         'title': 'Login',

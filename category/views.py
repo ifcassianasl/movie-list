@@ -8,8 +8,6 @@ from library.models import Library
 
 @login_required()
 def create_categories(request):
-    user = request.user
-    libraries = Library.objects.filter(users__username=user)
     library = request.session['active_library']
     active_library = get_object_or_404(Library, uuid=library)
 
@@ -34,7 +32,6 @@ def create_categories(request):
     content = {
         'title': title,
         'form': form,
-        'libraries': libraries,
     }
 
     return render(request, 'category_form.html', content)
@@ -43,9 +40,6 @@ def create_categories(request):
 @login_required()
 def categories_view(request):
     library = request.session['active_library']
-
-    user = request.user
-    libraries = Library.objects.filter(users__username=user)
 
     categories = Category.objects.filter(library__uuid=library)
 
@@ -57,7 +51,6 @@ def categories_view(request):
     content = {
         'title': title,
         'categories': categories,
-        'libraries': libraries,
     }
 
     return render(request, 'categories.html', content)
