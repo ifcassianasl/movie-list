@@ -4,6 +4,8 @@ from .models import Movie
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from library.models import Library
+from .serializers import MovieSerializer
+from rest_framework import viewsets
 
 
 @login_required()
@@ -37,13 +39,17 @@ def create_movie(request):
 
 @login_required()
 def movies_view(request):
-    active_library = request.session['active_library']
-    movies = Movie.objects.filter(category__library__uuid=active_library)
+    if request.session['active_library']:
+        library = request.session['active_library']
+        movies = Movie.objects.filter(category__library__uuid=library)
 
-    if movies.count() == 0:
-        title = 'Você não tem filmes registrados'
+        if movies.count() == 0:
+            title = 'Você não tem filmes registrados'
+        else:
+            title = 'Meus filmes'
     else:
-        title = 'Meus filmes'
+        title = "Escolha uma lista!"
+        movies = []
 
     content = {
         'title': title,
@@ -61,3 +67,8 @@ def delete_movie(request):
         movie.delete()
     
     return redirect('movies')
+
+
+class MovieViewSet(viewsets.ModelViewSet):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer

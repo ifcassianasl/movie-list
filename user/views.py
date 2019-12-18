@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from .forms import EditUserForm
-from library.models import Library
+from rest_framework import viewsets
+from .serializers import UserSerializer
 
 
 @login_required()
@@ -38,3 +39,8 @@ def edit_account(request):
         'form': form,
     }
     return render(request, 'edit_user.html', content)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

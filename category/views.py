@@ -4,6 +4,8 @@ from .models import Category
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from library.models import Library
+from rest_framework import viewsets
+from .serializers import CategorySerializer
 
 
 @login_required()
@@ -39,14 +41,16 @@ def create_categories(request):
 
 @login_required()
 def categories_view(request):
-    library = request.session['active_library']
-
-    categories = Category.objects.filter(library__uuid=library)
-
-    if categories.count() == 0:
-        title = "Você não tem categorias nessa lista"
+    if request.session['active_library']:
+        library = request.session['active_library']
+        categories = Category.objects.filter(library__uuid=library)
+        if categories.count() == 0:
+            title = "Você não tem categorias nessa lista"
+        else:
+            title = "Minhas categorias"
     else:
-        title = "Minhas categorias"
+        title = "Escolha uma lista!"
+        categories = []
 
     content = {
         'title': title,
@@ -64,3 +68,8 @@ def delete_category(request):
         category.delete()
     
     return redirect('categories')
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

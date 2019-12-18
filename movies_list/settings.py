@@ -16,8 +16,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # MY APP'S
+    'rest_framework',
     'create_user',
     'crispy_forms',
     'login',
@@ -34,8 +33,14 @@ INSTALLED_APPS = [
     'user',
     'library',
     'category',
-    'movie'
+    'movie',
 ]
+# Application definition
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

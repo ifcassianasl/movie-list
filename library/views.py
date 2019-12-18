@@ -3,6 +3,8 @@ from .forms import LibraryForm
 from .models import Library
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from rest_framework import viewsets
+from .serializers import LibrarySerializer
 
 
 @login_required()
@@ -56,6 +58,8 @@ def delete_library(request):
 
 @login_required()
 def active_library(request):
+    request.session['active_library'] = ''
+    request.session['active_library_title'] = ''
     uuid = request.GET.get('library_uuid')
 
     if uuid:
@@ -73,3 +77,8 @@ def active_library(request):
         })
 
     return redirect('/dashboard/')
+
+
+class LibraryViewSet(viewsets.ModelViewSet):
+    queryset = Library.objects.all()
+    serializer_class = LibrarySerializer
